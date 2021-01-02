@@ -4012,9 +4012,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5762fcf653cb6764eaa30312ff8bad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
-  hp: 10
   stats:
     size: 1
     speed: 3.5
     sightRange: 5
+  hp:
+    _max: 0
+    _val: 10

@@ -14,7 +14,7 @@ public class Idle : State
 {
     public Idle(CreatureAI creatureAI) : base(creatureAI){}
     public override void Update(){
-        if (creature.hungerPercentage < 0.5){
+        if (creature.hunger.percentage < 0.5){
             creature.SetState(new SearchingForFood(creature));
         }
     }
@@ -53,7 +53,7 @@ public class Eating : State
         if (creature.col.Distance(food.col).distance < 0.1){
             Debug.Log("Eating "+food.name);
             if (creature.Attack(food)) {
-                creature.hunger = creature.maxHunger;
+                creature.hunger.percentage = 1;
             }
         } else {
             creature.SetState(new Idle(creature));

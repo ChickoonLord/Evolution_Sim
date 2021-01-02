@@ -5,9 +5,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CreatureAI : OrganismAI
 {
-    public int maxHunger = 1;
-    public int hunger = 1;
-    public float hungerPercentage{get {return (float)hunger/maxHunger;}}
+    public Percentage hunger;
     public State state{get; private set;}
     [HideInInspector] public NavMeshAgent agent;
     float sightRange;
@@ -25,8 +23,8 @@ public class CreatureAI : OrganismAI
         transform.localScale = new Vector3(stats.size,stats.size,1);
         agent.speed = stats.speed;
         sightRange = stats.sightRange + (stats.size/2);
-        SetMaxHp(Mathf.RoundToInt(stats.size*10));
-        SetMaxHunger(Mathf.RoundToInt(stats.size*5)+45);
+        hp = new Percentage(Mathf.RoundToInt(stats.size*10),hp.percentage);
+        hunger = new Percentage(Mathf.RoundToInt(stats.size*5)+45,hunger.percentage);
     }
     protected override void ApplyStats(CreatureStats defaultStats){
         stats = defaultStats;
@@ -76,11 +74,6 @@ public class CreatureAI : OrganismAI
             }
         }
         return objectWithTag;
-    }
-    public void SetMaxHunger(int value){
-        float hungerPercent = hungerPercentage;
-        maxHunger = value;
-        hunger = Mathf.RoundToInt(hungerPercent*maxHunger);
     }
     public void SetState(State _state){
         state.End();
